@@ -116,19 +116,19 @@ public:
         return temp;
     }
     node* Delete(node* temp, int val){
-        if(val<root->data){
+        if(val<temp->data){
             temp->left= Delete(temp->left,val);
         }
-        else if(val<root->data){
+        else if(val<temp->data){
             temp->right= Delete(temp->right,val);
         }
         else{
-            if(root->left==NULL){
+            if(temp->left==NULL){
                 node *temp1=temp->right;
                 free(temp); 
                 return temp1;
             }
-            if(root->right==NULL){
+            if(temp->right==NULL){
                 node *temp1=temp->left;
                 free(temp); 
                 return temp1;
