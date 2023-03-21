@@ -171,19 +171,4 @@ public:
         this->root=Delete(root,val);
     }
 };
-int main(){
-    BinaryTree t=BinaryTree();
-    t.addnode(5);
-    t.addnode(4);
-    t.addnode(6);
-    t.addnode(7);
-    t.addnode(9);
-    t.addnode(2);
-    t.addnode(1);
-    t.addnode(3);
-    t.addnode(8);
-    t.inOrder();
-    t.delnode(5);
-    t.inOrder();
 
-}
