@@ -17,9 +17,9 @@ public:
 };
 class BinaryTree
 {
-    node *root;
-public:
     
+public:
+    node *root;
     BinaryTree()
     {
         root = NULL;
