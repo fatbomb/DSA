@@ -1,0 +1,1 @@
+{"name":"Local: rangesum","url":"c:\\Fatbomb\\icpc\\DSA\\DSA\\rangesum.cpp","tests":[{"id":1679434809394,"input":"6\n10 5 15 3 7 18\n7 15","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Fatbomb\\icpc\\DSA\\DSA\\rangesum.cpp","group":"local","local":true}
