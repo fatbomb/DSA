@@ -4,12 +4,12 @@ int rangeSumBST(node* root,int low, int high ){
     if(root==NULL){
         return 0;
     }
-    if(root->val==low ){
+    if(root->data==low ){
         //cout<<root->data<<endl;;
-        return root->val+rangeSumBST(root->right,low,high);
+        return root->data+rangeSumBST(root->right,low,high);
     }
-    if(root->val==high){
-        return root->val+rangeSumBST(root->left,low,high);
+    if(root->data==high){
+        return root->data+rangeSumBST(root->left,low,high);
     }
     if(root->data<low){
         return rangeSumBST(root->right,low,high);
