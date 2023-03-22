@@ -15,6 +15,7 @@ int rangeSumBST(node* root,int low, int high ){
         return rangeSumBST(root->right,low,high);
     }
     if(root->data>high){
+        //cout<<rangeSumBST(root->left,low,high);
         return rangeSumBST(root->left,low,high);
     }
 
