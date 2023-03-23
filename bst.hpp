@@ -101,6 +101,7 @@ public:
             n->lev=0;
             root=n;
             return;
+            //updated
         }
         Addnode(root,val);
     }
