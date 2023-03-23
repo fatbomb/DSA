@@ -118,6 +118,7 @@ public:
     void preOrder(){
         preOrderTravarsal(root);
         cout<<endl;
+        //
     }
 
     void inOrderTravarsal(node *temp)
