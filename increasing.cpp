@@ -1,4 +1,4 @@
-#include "bst.hpp"
+#include "bst1.hpp"
 
 
 node* newtree(node* root, node* t=NULL){

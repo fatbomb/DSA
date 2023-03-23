@@ -1,4 +1,4 @@
-#include "bst.hpp"
+#include "bst1.hpp"
 
 int prv=-1;
 

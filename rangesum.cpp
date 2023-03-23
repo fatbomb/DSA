@@ -1,4 +1,4 @@
-#include "bst.hpp"
+#include "bst1.hpp"
 
 int rangeSumBST(node* root,int low, int high ){
     if(root==NULL){

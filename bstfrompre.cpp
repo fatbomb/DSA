@@ -1,4 +1,4 @@
-#include "bst.hpp"
+#include "bst1.hpp"
 int sum=0;
 node* bstToGst(node* root){
     if(root==NULL){
