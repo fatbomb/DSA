@@ -14,20 +14,20 @@ public:
         data = val;
         left = NULL;
         right = NULL;
-        lev=0;
+        lev = 0;
     }
 };
 class BinaryTree
 {
-    
+
 public:
     node *root;
     int node_count;
     BinaryTree()
     {
         root = NULL;
-        //level=-1;
-        node_count=0;
+        // level=-1;
+        node_count = 0;
     }
     void addnode(int val)
     {
@@ -35,8 +35,8 @@ public:
         if (root == NULL)
         {
             root = n;
-            n->lev=0;
-            //this->level=0;
+            n->lev = 0;
+            // this->level=0;
             node_count++;
             return;
         }
@@ -51,8 +51,8 @@ public:
                 if (temp == NULL)
                 {
                     par->left = n;
-                    n->lev=par->lev+1;
-                    //this->level=max(n->lev,this->level);
+                    n->lev = par->lev + 1;
+                    // this->level=max(n->lev,this->level);
                     node_count++;
                     return;
                 }
@@ -63,49 +63,59 @@ public:
                 if (temp == NULL)
                 {
                     par->right = n;
-                    n->lev=par->lev+1;
+                    n->lev = par->lev + 1;
                     node_count++;
-                    //this->level=max(n->lev,this->level);
+                    // this->level=max(n->lev,this->level);
                     return;
                 }
             }
         }
     }
-    void Addnode(node* &t, int val){
-        if(t->data<=val){
-            if(t->right==NULL){
-                node* n=new node(val);
-                n->lev=t->lev+1;
-                t->right=n;
-                
+    void Addnode(node *&t, int val)
+    {
+        if (t->data <= val)
+        {
+            if (t->right == NULL)
+            {
+                node *n = new node(val);
+                n->lev = t->lev + 1;
+                t->right = n;
+                node_count++;
                 return;
             }
-            else{
-                Addnode(t->right,val);
+            else
+            {
+                Addnode(t->right, val);
             }
         }
-        else{
-            if(t->left==NULL){
-                node* n=new node(val);
-                n->lev=t->lev+1;
-                t->left=n;
+        else
+        {
+            if (t->left == NULL)
+            {
+                node *n = new node(val);
+                n->lev = t->lev + 1;
+                t->left = n;
+                node_count++;
             }
-            else{
-                Addnode(t->left,val);
+            else
+            {
+                Addnode(t->left, val);
             }
         }
     }
-    void ADDnode(int val){
-        if(root==NULL){
-            node *n =new node(val);
-            n->lev=0;
-            root=n;
+    void ADDnode(int val)
+    {
+        if (root == NULL)
+        {
+            node *n = new node(val);
+            n->lev = 0;
+            root = n;
             return;
-            //updated
+            // updated
         }
-        Addnode(root,val);
+        Addnode(root, val);
     }
-    
+
     void preOrderTravarsal(node *temp)
     {
         if (temp != NULL)
@@ -115,9 +125,10 @@ public:
             preOrderTravarsal(temp->right);
         }
     }
-    void preOrder(){
+    void preOrder()
+    {
         preOrderTravarsal(root);
-        cout<<endl;
+        cout << endl;
         //
     }
 
@@ -130,9 +141,10 @@ public:
             inOrderTravarsal(temp->right);
         }
     }
-    void inOrder(){
+    void inOrder()
+    {
         inOrderTravarsal(root);
-        cout<<endl;
+        cout << endl;
     }
     void postOrderTravarsal(node *temp)
     {
@@ -143,9 +155,10 @@ public:
             cout << temp->data << " ";
         }
     }
-    void postOrder(){
+    void postOrder()
+    {
         postOrderTravarsal(root);
-        cout<<endl;
+        cout << endl;
     }
     node *_search(int val, node *temp)
     {
@@ -172,192 +185,232 @@ public:
             return false;
         return true;
     }
-    
-    node* find_min(node* temp){
-        while(temp and temp->left!=NULL){
-            temp=temp->left;
+
+    node *find_min(node *temp)
+    {
+        while (temp and temp->left != NULL)
+        {
+            temp = temp->left;
         }
         return temp;
     }
-    node* Delete(node* temp, int val){
-        if(temp==NULL){
+    node *Delete(node *temp, int val)
+    {
+        if (temp == NULL)
+        {
             return NULL;
         }
-        if(val<temp->data){
-            temp->left= Delete(temp->left,val);
+        if (val < temp->data)
+        {
+            temp->left = Delete(temp->left, val);
         }
-        else if(val<temp->data){
-            temp->right= Delete(temp->right,val);
+        else if (val < temp->data)
+        {
+            temp->right = Delete(temp->right, val);
         }
-        else{
-            if(temp->left==NULL){
-                node *temp1=temp->right;
-                if(temp->right!=NULL)
-                temp1->lev=temp->lev;
-                //cout<<"deleted Data1\n"<<temp->data<<endl;
-                free(temp); 
-                node_count--;
-                
-                
-                return temp1;
-                
-            }
-            else if(root->right==NULL){
-                node *temp1=temp->left;
-                if(temp->left!=NULL)
-                temp1->lev=temp->lev;
-                free(temp); 
+        else
+        {
+            if (temp->left == NULL)
+            {
+                node *temp1 = temp->right;
+                if (temp->right != NULL)
+                    temp1->lev = temp->lev;
+                // cout<<"deleted Data1\n"<<temp->data<<endl;
+                free(temp);
                 node_count--;
 
-                //cout<<"deleted Data2\n";
                 return temp1;
             }
-            else{
-                node* temp1=find_min(temp->right);
-                temp1->lev=temp->lev;
-                temp=temp1;
+            else if (root->right == NULL)
+            {
+                node *temp1 = temp->left;
+                if (temp->left != NULL)
+                    temp1->lev = temp->lev;
+                free(temp);
+                node_count--;
 
-                temp->right=Delete(temp->right,temp1->data);
-                //cout<<"deleted Data3\n";
+                // cout<<"deleted Data2\n";
+                return temp1;
             }
+            else
+            {
+                node *temp1 = find_min(temp->right);
+                temp1->lev = temp->lev;
+                temp = temp1;
 
-
+                temp->right = Delete(temp->right, temp1->data);
+                // cout<<"deleted Data3\n";
+            }
         }
         return temp;
     }
-    bool Isskew(node* root){
-            if(root->left==NULL and root->right==NULL){
-                return true;
-            }
-            if(root->left!=NULL and root->right!=NULL ){
-                return false;
-            }
-            else if(root->left==NULL){
-                return Isskew(root->right);
-            }
-            else{
-                return Isskew(root->left);
-            }
+    bool Isskew(node *root)
+    {
+        if (root->left == NULL and root->right == NULL)
+        {
+            return true;
+        }
+        if (root->left != NULL and root->right != NULL)
+        {
+            return false;
+        }
+        else if (root->left == NULL)
+        {
+            return Isskew(root->right);
+        }
+        else
+        {
+            return Isskew(root->left);
+        }
     }
-    bool isSkewed(){
-        if(this->root==NULL){
+    bool isSkewed()
+    {
+        if (this->root == NULL)
+        {
             return true;
         }
         return Isskew(root);
     }
-    bool IS_left(node* root){
-        if(root->left==NULL and root->right==NULL){
+    bool IS_left(node *root)
+    {
+        if (root->left == NULL and root->right == NULL)
+        {
             return true;
         }
-        if(root->right!=NULL){
+        if (root->right != NULL)
+        {
             return false;
         }
         return IS_left(root->left);
     }
-    bool Isskewed_left(){
-        if(root==NULL){
+    bool Isskewed_left()
+    {
+        if (root == NULL)
+        {
             return true;
         }
         return IS_left(root);
     }
-    
 
-    
     void delnode(int val)
     {
-        this->root=Delete(root,val);
+        this->root = Delete(root, val);
     }
-    bool IS_right(node* root){
-        if(root->left==NULL and root->right==NULL){
+    bool IS_right(node *root)
+    {
+        if (root->left == NULL and root->right == NULL)
+        {
             return true;
         }
-        if(root->left!=NULL){
+        if (root->left != NULL)
+        {
             return false;
         }
         return IS_right(root->right);
     }
-    bool Isskewed_right(){
-        if(root==NULL){
+    bool Isskewed_right()
+    {
+        if (root == NULL)
+        {
             return true;
         }
         return IS_right(root);
     }
-    bool is_f(node* root){
-        if(root->left==NULL and root->right==NULL){
+    bool is_f(node *root)
+    {
+        if (root->left == NULL and root->right == NULL)
+        {
             return true;
         }
-        if(root->left==NULL or root->right==NULL){
+        if (root->left == NULL or root->right == NULL)
+        {
             return false;
         }
-        return (is_f(root->left ) & is_f(root->right));
+        return (is_f(root->left) & is_f(root->right));
     }
-    bool is_full(){
-        if(root==NULL){
+    bool is_full()
+    {
+        if (root == NULL)
+        {
             return true;
         }
         return is_f(root);
-
     }
-    int depth(){
-        node* temp=root;
-        while(temp->left!=NULL){
-            temp=temp->left;
+    int depth()
+    {
+        node *temp = root;
+        while (temp->left != NULL)
+        {
+            temp = temp->left;
         }
         return temp->lev;
     }
-    bool is_per(node* n, int d, int lev=0){
-        if(n==NULL){
+    bool is_per(node *n, int d, int lev = 0)
+    {
+        if (n == NULL)
+        {
             return true;
         }
-        if(n->left==NULL and n->right==NULL){
-            return(d==lev+1);
+        if (n->left == NULL and n->right == NULL)
+        {
+            return (d == lev + 1);
         }
-        if(n->left==NULL or n->right==NULL){
+        if (n->left == NULL or n->right == NULL)
+        {
             return false;
         }
-        return (is_per(n->left,d,lev+1) & is_per(n->right,d,lev+1));
-        
+        return (is_per(n->left, d, lev + 1) & is_per(n->right, d, lev + 1));
     }
-    bool is_perfect(){
-        int d=depth();
-        return is_per(root,d);
+    bool is_perfect()
+    {
+        int d = depth();
+        return is_per(root, d);
     }
-    bool is_comp(node* root, int ind){
-        if(root==NULL){
+    bool is_comp(node *root, int ind)
+    {
+        if (root == NULL)
+        {
             return true;
         }
-        if(ind>=this->node_count){
+        if (ind >= this->node_count)
+        {
             return false;
         }
-        return (is_comp(root->left,ind*2+1)&is_comp(root->right,ind*2+2));
-
+        return (is_comp(root->left, ind * 2 + 1) & is_comp(root->right, ind * 2 + 2));
     }
-    bool is_complete(){
-        if(this->root==NULL){
+    bool is_complete()
+    {
+        if (this->root == NULL)
+        {
             return true;
         }
-        return is_comp(root,0);
+        return is_comp(root, 0);
     }
-    int height(node* root){
-        if(root==NULL){
+    int height(node *root)
+    {
+        if (root == NULL)
+        {
             return 0;
         }
-        return 1+max(height(root->left),height(root->right));
+        return 1 + max(height(root->left), height(root->right));
     }
-    bool is_ba(node* root){
-        int lh,rh;
-        if(root==NULL){
+    bool is_ba(node *root)
+    {
+        int lh, rh;
+        if (root == NULL)
+        {
             return true;
         }
-        lh=height(root->left);
-        rh=height(root->right);
-        return (abs(lh-rh)<=1 and is_ba(root->right) and is_ba(root->left));
+        lh = height(root->left);
+        rh = height(root->right);
+        return (abs(lh - rh) <= 1 and is_ba(root->right) and is_ba(root->left));
     }
-    bool is_balanced(){
-        if(root==NULL){
+    bool is_balanced()
+    {
+        if (root == NULL)
+        {
             return true;
         }
         return is_ba(root);
     }
 };
-
