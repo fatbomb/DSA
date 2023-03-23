@@ -28,165 +28,296 @@ public:
     }
 };
 
-class TreeArrat{
-    public:
+class TreeArrat
+{
+public:
     Student *tree[100000];
-
-    void addnode(int parent ,Student* s){
-        if(tree[parent]==NULL){
-            tree[parent]=s;
+    int node_count=0;
+    void addnode(Student *s,int parent=1)
+    {
+        if (tree[parent] == NULL)
+        {
+            tree[parent] = s;
             return;
         }
 
-        if(tree[parent]->roll>s->roll){
-            if(tree[2*parent]==NULL){
-                tree[2*parent]=s;
+        if (tree[parent]->roll > s->roll)
+        {
+            if (tree[2 * parent] == NULL)
+            {
+                tree[2 * parent] = s;
+                node_count++;
                 return;
             }
-            addnode(2*parent,s);
+            addnode(s,2 * parent);
+        }
+        else
+        {
+            if (tree[(parent * 2) + 1] == NULL)
+            {
+                tree[(2 * parent) + 1] = s;
+                node_count++;
+                return;
+            }
+            addnode(s,(2 * parent) + 1);
+        }
+    }
+    void preOrderTravarsal(int parent=1)
+    {
+        if (tree[parent] != NULL)
+        {
+            cout << tree[parent]->roll << " ";
+            preOrderTravarsal(parent * 2);
+            preOrderTravarsal((parent * 2) + 1);
+        }
+    }
+    void inOrderTravarsal(int parent=1)
+    {
+        if (tree[parent] != NULL)
+        {
+            inOrderTravarsal(parent * 2);
+            cout << tree[parent]->roll << " ";
+            inOrderTravarsal((parent * 2) + 1);
+        }
+    }
+    void postOrderTravarsal(int parent=1)
+    {
+        if (tree[parent] != NULL)
+        {
 
-        }
-        else{
-            if(tree[(parent*2)+1]==NULL){
-                tree[(2*parent)+1]=s;
-                return;
-            }
-            addnode((2*parent)+1,s);
+            postOrderTravarsal(parent * 2);
+
+            postOrderTravarsal((parent * 2) + 1);
+            cout << tree[parent]->roll << " ";
         }
     }
-    void preOrderTravarsal(int parent)
+    int find_min(int parent=1)
     {
-        if (tree[parent] != NULL)
+        while (tree[parent] and tree[parent * 2] != NULL)
         {
-            cout<<tree[parent]->roll<<" ";
-            preOrderTravarsal(parent*2);
-            preOrderTravarsal((parent*2)+1);
-        }
-    }
-    void inOrderTravarsal(int parent)
-    {
-        if (tree[parent] != NULL)
-        {
-            inOrderTravarsal(parent*2);
-            cout<<tree[parent]->roll<<" ";
-            inOrderTravarsal((parent*2)+1);
-        }
-    }
-    void postOrderTravarsal(int parent)
-    {
-        if (tree[parent] != NULL)
-        {
-            
-            postOrderTravarsal(parent*2);
-            
-            postOrderTravarsal((parent*2)+1);
-            cout<<tree[parent]->roll<<" ";
-        }
-    }
-    int find_min(int parent){
-        while(tree[parent] and tree[parent*2]!=NULL){
-            parent*=2;
+            parent *= 2;
         }
         return parent;
     }
-    
-    void delnode(int parent, int val){
-        if(tree[parent]==NULL){
-            return ;
-        }
-        if(val<tree[parent]->roll){
-            delnode(parent*2,val);
-        }
-        else if(val>tree[parent]->roll){
-            delnode((parent*2)+1,val);
-        }
-        else{
-            if(tree[parent*2]==NULL){
-                tree[parent]=tree[(parent*2)+1];
-                tree[(parent*2)+1]=NULL;
-                return;
-            }
-            else if(tree[(parent*2)+1]==NULL){
-                tree[parent]=tree[parent*2];
-                tree[(parent*2)]=NULL;
-                return;
-            }
-            else{
-                Student *s =tree[find_min(parent)];
-                tree[parent]=s;
-                delnode((parent*2)+1,val);
 
+    void delnode( int val,int parent=1)
+    {
+        if (tree[parent] == NULL)
+        {
+            return;
+        }
+        if (val < tree[parent]->roll)
+        {
+            delnode(val,parent * 2);
+        }
+        else if (val > tree[parent]->roll)
+        {
+            delnode(val,(parent * 2) + 1);
+        }
+        else
+        {
+            if (tree[parent * 2] == NULL)
+            {
+                tree[parent] = tree[(parent * 2) + 1];
+                //cout<<1<<endl;
+                tree[(parent * 2) + 1] = NULL;
+                node_count--;
+                return;
+            }
+            else if (tree[(parent * 2) + 1] == NULL)
+            {
+                tree[parent] = tree[parent * 2];
+                //cout<<1<<endl;
+                tree[(parent * 2)] = NULL;
+                node_count--;
+                return;
+            }
+            else
+            {
+                Student *s = tree[find_min(parent)];
+                tree[parent] = s;
+                delnode(val,(parent * 2) + 1);
             }
         }
     }
-    int search(int val,int par){
-        if(tree[par]==NULL){
+    int search(int val, int par=1)
+    {
+        if (tree[par] == NULL)
+        {
             return -1;
         }
-        if(val== tree[par]->roll){
+        if (val == tree[par]->roll)
+        {
             return par;
         }
-        if(val<tree[par]->roll){
-            search(val,par*2);
+        if (val < tree[par]->roll)
+        {
+            search(val, par * 2);
         }
-        else{
-            search(val,(par*2)+1);
+        else
+        {
+            search(val, (par * 2) + 1);
         }
     }
-    bool isFull(int par){
+    bool isFull(int par=1)
+    {
+        if (tree[par] == NULL)
+        {
+            return true;
+        }
+        if (tree[par * 2] == NULL and tree[par * 2 + 1] == NULL)
+        {
+            return true;
+        }
+        else if (tree[par * 2] == NULL or tree[par * 2 + 1] == NULL)
+        {
+            return false;
+        }
+        else
+        {
+            return (isFull(par * 2) & isFull(par * 2 + 1));
+        }
+    }
+    void print_tree()
+    {
+        cout << "\n";
+        for (int i = 0; i < 10; i++)
+        {
+            if (tree[i] != NULL)
+                tree[i]->DIsplay();
+            else
+                cout << endl;
+        }
+
+        return;
+    }
+    bool isskewed(int par=1){
         if(tree[par]==NULL){
             return true;
         }
         if(tree[par*2]==NULL and tree[par*2+1]==NULL){
             return true;
         }
-        else if(tree[par*2]==NULL and tree[par*2+1]==NULL){
+        if(tree[par*2]!=NULL and tree[par*2+1]!=NULL){
             return false;
         }
-        else{
-            return (isFull(par*2) & isFull(par*2+1));
+        else if(tree[par*2]==NULL){
+            return isskewed(par*2+1);
         }
+        else{
+            return isskewed(par*2);
+        }
+    }
+    bool isskewed_left(int par=1){
+        if(tree[par]==NULL){
+            return true;
+        }
+        if(tree[par*2]==NULL and tree[par*2+1]==NULL){
+            return true;
+        }
+        if(tree[par*2+1]!=NULL){
+            return false;
+        }
+        return isskewed_left(par*2);
+    }
+    bool isskewed_right(int par=1){
+        if(tree[par]==NULL){
+            return true;
+        }
+        if(tree[par*2]==NULL and tree[par*2+1]==NULL){
+            return true;
+        }
+        if(tree[par*2]!=NULL){
+            return false;
+        }
+        return isskewed_right(par*2+1);
+    }
+    int depth(){
+        int par=1;
+        int cnt=0;
+        while(tree[par*2]!=NULL){
+            par*=2;
+            cnt++;
+        }
+        return cnt;
+    }
+    bool isPerf(int d, int par=1,int lev=0){
+        if(tree[par]==NULL){
+            return true;
+        }
+        if(tree[par*2]==NULL and tree[par*2+1]==NULL){
+            return (d==lev);
+        }
+        if(tree[par*2]==NULL or tree[par*2+1]==NULL){
+            return false;
+        }
+        return (isPerf(d,par*2,lev+1)&isPerf(d,par*2+1,lev+1));
 
     }
-void print_tree()
-{
-    cout << "\n";
-    for (int i = 0; i < 10; i++)
-    {
-        if (tree[i] != NULL)
-            tree[i]->DIsplay();
-        else
-            cout << endl;
+    bool isperfect(){
+        if(tree[1]==NULL){
+            return true;
+        }
+        int d=depth();
+        return isPerf(d);
     }
+    bool iscomplete(int par=1){
+        if(tree[par]==NULL){
+            return true;
+        }
+        if(par>this->node_count){
+            return false;
+        }
+        return (iscomplete(par*2) & iscomplete(par*2+1));
 
-    return;
-}
+    }
+    int height(int par){
+        if(tree[par]==NULL){
+            return 0;
+        }
+        return 1+max(height(par*2),height(par*2+1));
+    }
+    bool isbalanced(int par=1){
+        if(tree[par]==NULL){
+            return true;
+        }
+        int lh,rh;
+        lh=height(par*2);
+        rh=height(par*2+1);
+        return (abs(lh-rh)<=1 and isbalanced(par*2) and isbalanced(par*2+1));
+    }
 };
-
 
 // Driver Code
 int main()
 {
-    TreeArrat t= TreeArrat();
-     t.addnode(1, new Student("ARAF", 15, "23/06/2002", 3.84));
+    TreeArrat t = TreeArrat();
+    t.addnode(new Student("ARAF", 15, "23/06/2002", 3.84));
+    t.preOrderTravarsal(1);
+    cout << endl;
+    t.addnode(new Student("Nesar", 2, "23/06/2002", 3.57));
+    t.preOrderTravarsal(1);
+    cout << endl;
+    t.addnode(new Student("Zisan", 23, "23/06/2002", 3.63));
+    t.preOrderTravarsal(1);
+    cout << endl;
+    t.addnode(new Student("Shawn", 47, "23/06/2002", 3.55));
+    t.preOrderTravarsal(1);
+    cout << endl;
+    t.addnode(new Student("Himel", 13, "10/10/2002", 3.85));
+    t.preOrderTravarsal(1);
+    cout << endl;
+    t.addnode(new Student("Riya", 22, "--/--/2002", 3.60));
     t.preOrderTravarsal(1);
     cout<<endl;
-    t.addnode(1, new Student("Faik", 1, "23/06/2002", 3.57));
-    t.preOrderTravarsal(1);
+    t.addnode(new Student("Faik", 1, "--/--/2002", 3.60));
+    t.preOrderTravarsal();
     cout<<endl;
-    t.addnode(1, new Student("Zisan", 23, "23/06/2002", 3.63));
-    t.preOrderTravarsal(1);
-    cout<<endl;
-    t.addnode(1, new Student("Shawn", 47, "23/06/2002", 3.55));
-    t.preOrderTravarsal(1);
-    cout<<endl;
-    t.addnode(1, new Student("Himel", 13, "10/10/2002", 3.85));
-    t.preOrderTravarsal(1);
-    cout<<endl;
-    t.addnode(1, new Student("Aniket", 48, "17/08/2002", 3.60));
-    t.preOrderTravarsal(1);
-    t.delnode(1,47);
-    cout<<endl;
-    t.preOrderTravarsal(1);
+    cout<<t.isperfect()<<endl;
+    t.delnode(47);
+    t.preOrderTravarsal();
+    cout << endl;
+    cout<<t.isperfect()<<endl;
+
     return 0;
 }

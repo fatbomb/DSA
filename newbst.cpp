@@ -363,7 +363,7 @@ public:
         }
         return temp->lev;
     }
-    bool is_per(node *n, int d, int lev = 0)
+    bool is_per(node *n, int d)
     {
         if (n == NULL)
         {
@@ -371,13 +371,13 @@ public:
         }
         if (n->left == NULL and n->right == NULL)
         {
-            return (d == lev + 1);
+            return (d == n->lev);
         }
         if (n->left == NULL or n->right == NULL)
         {
             return false;
         }
-        return (is_per(n->left, d, lev + 1) & is_per(n->right, d, lev + 1));
+        return (is_per(n->left, d) & is_per(n->right, d));
     }
     bool is_perfect()
     {
