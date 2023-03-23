@@ -71,6 +71,39 @@ public:
             }
         }
     }
+    void Addnode(node* &t, int val){
+        if(t->data<=val){
+            if(t->right==NULL){
+                node* n=new node(val);
+                n->lev=t->lev+1;
+                t->right=n;
+                
+                return;
+            }
+            else{
+                Addnode(t->right,val);
+            }
+        }
+        else{
+            if(t->left==NULL){
+                node* n=new node(val);
+                n->lev=t->lev+1;
+                t->left=n;
+            }
+            else{
+                Addnode(t->left,val);
+            }
+        }
+    }
+    void ADDnode(int val){
+        if(root==NULL){
+            node *n =new node(val);
+            n->lev=0;
+            root=n;
+            return;
+        }
+        Addnode(root,val);
+    }
     
     void preOrderTravarsal(node *temp)
     {
