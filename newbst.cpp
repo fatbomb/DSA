@@ -1,14 +1,37 @@
 #include <bits/stdc++.h>
 
 using namespace std;
+class Student{
+    // string Name;
+    // int roll;
+    // string DateOfBirth;
+    // double cgpa;
+    public:
+    string Name;
+    int roll;
+    string DateOfBirth;
+    double cgpa;
+    Student(string name,int roll, string DateOfBirth,double cgpa){
+        this->Name=name;
+        this->roll=roll;
+        this->DateOfBirth=DateOfBirth;
+        this->cgpa=cgpa;
+    }
+    void DIsplay(){
+        cout<<"Name: "<<Name<<endl;
+        cout<<"Roll: "<<roll<<endl;
+        cout<<"Date of Birth: "<<DateOfBirth<<endl;
+        cout<<"CGPA: "<<cgpa<<endl;
+    }
+};
 
 class node
 {
 public:
-    int data;
+    Student *data;
     node *left;
     node *right;
-    node(int val)
+    node(Student* val)
     {
         data = val;
         left = NULL;
@@ -24,7 +47,7 @@ public:
     {
         root = NULL;
     }
-    void addnode(int val)
+    void addnode(Student* val)
     {
         node *n = new node(val);
         if (root == NULL)
@@ -37,7 +60,7 @@ public:
         while (true)
         {
             par = temp;
-            if (val < temp->data)
+            if ((val->roll) < (temp->data->roll))
             {
                 temp = temp->left;
                 if (temp == NULL)
@@ -57,8 +80,8 @@ public:
             }
         }
     }
-    void Addnode(node* &t, int val){
-        if(t->data<=val){
+    void Addnode(node* &t, Student* val){
+        if(t->data->roll<=val->roll){
             if(t->right==NULL){
                 node* n=new node(val);
                 t->right=n;
@@ -73,12 +96,13 @@ public:
                 node* n=new node(val);
                 t->left=n;
             }
+
             else{
                 Addnode(t->left,val);
             }
         }
     }
-    void ADDnode(int val){
+    void ADDnode(Student* val){
         if(root==NULL){
             node *n =new node(val);
             root=n;
@@ -92,7 +116,7 @@ public:
     {
         if (temp != NULL)
         {
-            cout << temp->data << " ";
+            temp->data->DIsplay();
             preOrderTravarsal(temp->left);
             preOrderTravarsal(temp->right);
         }
@@ -107,7 +131,7 @@ public:
         if (temp != NULL)
         {
             inOrderTravarsal(temp->left);
-            cout << temp->data << " ";
+            temp->data->DIsplay();
             inOrderTravarsal(temp->right);
         }
     }
@@ -121,7 +145,7 @@ public:
         {
             postOrderTravarsal(temp->left);
             postOrderTravarsal(temp->right);
-            cout << temp->data << " ";
+            temp->data->DIsplay();
         }
     }
     void postOrder(){
@@ -134,11 +158,11 @@ public:
         {
             return NULL;
         }
-        if (val == temp->data)
+        if (val == temp->data->roll)
         {
             return temp;
         }
-        if (val < temp->data)
+        if (val < temp->data->roll)
         {
             return _search(val, temp->left);
         }
@@ -164,10 +188,10 @@ public:
         if(temp==NULL){
             return NULL;
         }
-        if(val<temp->data){
+        if(val<temp->data->roll){
             temp->left= Delete(temp->left,val);
         }
-        else if(val<temp->data){
+        else if(val>temp->data->roll){
             temp->right= Delete(temp->right,val);
         }
         else{
@@ -188,7 +212,8 @@ public:
             else{
                 node* temp1=find_min(temp->right);
                 temp->data=temp1->data;
-                temp->right=Delete(temp->right,temp1->data);
+                //temp1->data->DIsplay();
+                temp->right=Delete(temp->right,temp1->data->roll);
                 //cout<<"deleted Data3\n";
             }
 
@@ -196,8 +221,72 @@ public:
         }
         return temp;
     }
+    bool isleft_sweked(){
+        node* temp=root;
+        if(root==NULL){
+            return true;
+        }
+        while(temp->left!=NULL){
+            if(temp->right!=NULL){
+                return false;
+            }
+            temp=temp->left;
+        }
+        return true;
+    }
+    bool isright_sweked(){
+        node* temp=root;
+        if(root==NULL){
+            return true;
+        }
+        while(temp->right!=NULL){
+            if(temp->left!=NULL){
+                return false;
+            }
+            temp=temp->right;
+        }
+        return true;
+    }
+    bool isFull(node* root){
+        if(root==NULL){
+            return true;
+        }
+        if(root->left==NULL and root->right==NULL){
+            return true;
+        }
+        else if(root->left==NULL or root->right==NULL){
+            return false;
+        }
+        else{
+            return (isFull(root->left) & isFull(root->right));
+        }
+
+    }
     void delnode(int val)
     {
         this->root=Delete(root,val);
     }
 };
+
+int main(){
+    BinaryTree t= BinaryTree();
+    
+    t.ADDnode(new Student("ARAF", 15, "23/06/2002", 3.84));
+    t.preOrder();
+    t.ADDnode(new Student("Faik", 1, "23/06/2002", 3.57));
+    t.preOrder();
+    t.ADDnode(new Student("Zisan", 23, "23/06/2002", 3.63));
+    t.preOrder();
+    t.ADDnode(new Student("Shawn", 22, "23/06/2002", 3.55));t.preOrder();
+    t.preOrder();
+    t.ADDnode(new Student("Aniket", 48, "17/08/2002", 3.60));
+    t.preOrder();
+    cout<<t.search(47);
+    t.delnode(47);
+    cout<<t.search(47)<<endl;
+    t.preOrder();
+    cout<<t.isFull(t.root)<<endl;
+
+
+
+}
