@@ -309,25 +309,7 @@ public:
         }
         return IS_left(root);
     }
-    bool isFull(node *root)
-    {
-        if (root == NULL)
-        {
-            return true;
-        }
-        if (root->left == NULL and root->right == NULL)
-        {
-            return true;
-        }
-        else if (root->left == NULL or root->right == NULL)
-        {
-            return false;
-        }
-        else
-        {
-            return (isFull(root->left) & isFull(root->right));
-        }
-    }
+    
     void delnode(int val)
     {
         this->root = Delete(root, val);
@@ -470,5 +452,5 @@ int main()
     t.delnode(47);
     cout << t.search(47) << endl;
     t.preOrder();
-    cout << t.isFull(t.root) << endl;
+    cout << t.is_full() << endl;
 }
