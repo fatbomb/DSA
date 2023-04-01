@@ -2,6 +2,7 @@
 
 const int N = 1e5;
 
+template <typename T>
 class Queue
 {
     linked_list l1;
@@ -49,18 +50,18 @@ public:
         while (l1.head != NULL)
         {
             l1.delAthead();
-
         }
-        cnt=0;
+        cnt = 0;
     }
     void display()
     {
         l1.display();
     }
 };
+template <typename T>
 class Queue_array
 {
-    int *ar;
+    T *ar;
     int f;
     int l;
     int n;
@@ -70,7 +71,7 @@ public:
     Queue_array(int x = N)
     {
         n = x;
-        ar = new int[x];
+        ar = new T[x];
         f = 0;
         l = -1;
         cnt = 0;
@@ -83,7 +84,7 @@ public:
         }
         return false;
     }
-    int front()
+    T front()
     {
         if (empty())
         {
@@ -102,7 +103,7 @@ public:
         cnt--;
         f++;
     }
-    void push(int x)
+    void push(T x)
     {
         if (empty())
         {
@@ -145,9 +146,10 @@ public:
 };
 // #include<bits/stdc++.h>
 // const int N = 1e5;
+template <typename T>
 class Circular_Queue
 {
-    int *ar;
+    T *ar;
     int f;
     int l;
     int n;
@@ -156,7 +158,7 @@ class Circular_Queue
 public:
     Circular_Queue(int x = N)
     {
-        ar = new int[x];
+        ar = new T[x];
         n = x;
         f = 0;
         l = -1;
@@ -178,7 +180,7 @@ public:
         }
         return false;
     }
-    void push(int x)
+    void push(T x)
     {
         if (full())
         {
@@ -236,26 +238,355 @@ public:
         cout << ar[l] << endl;
     }
 };
+
+template <typename T>
+class PriorityQueue
+{
+    T *arr;
+    int n;
+    int cnt;
+
+public:
+    PriorityQueue(int x)
+    {
+        n = x;
+        cnt = 0;
+        arr = new T[x];
+    }
+    void push(T item)
+    {
+        arr[cnt] = item;
+        int ci = cnt++;
+        while (ci > 0)
+        {
+            int pi = (ci - 1) / 2;
+            if (arr[ci] <= arr[pi])
+            {
+                break;
+            }
+            T tem = arr[ci];
+            arr[ci] = arr[pi];
+            arr[pi] = tem;
+            ci = pi;
+        }
+    }
+    void pop()
+    {
+        // T fi = arr[0];
+        arr[0] = arr[cnt];
+        int li = --cnt;
+        int pi = 0;
+        while (true)
+        {
+            int ci = pi * 2;
+            if (ci > li)
+            {
+                break;
+            }
+            int rc = ci + 1;
+            if (rc <= li && arr[rc] < arr[ci])
+                ci = rc;
+            if (arr[pi] >= arr[ci])
+                break;
+            T tmp = arr[pi];
+            arr[pi] = arr[ci];
+            arr[ci] = tmp;
+            pi = ci;
+        }
+        return;
+    }
+    T top()
+    {
+        return arr[0];
+    }
+    int size()
+    {
+        return cnt;
+    }
+};
+template <typename T>
+
+class Priority_Queue_low
+{
+    T *har;
+    int n;
+    int cnt;
+
+public:
+    Priority_Queue_low(int x)
+    {
+        this->n = x ;
+        this->cnt = 0;
+        har = new T[x + 1];
+    }
+    bool empty(){
+        return(!cnt);
+    }
+    bool full(){
+        return(cnt==n);
+    }
+    void Swap(T &x, T &y)
+    {
+        T temp = x;
+        x = y;
+        y = temp;
+    }
+    int parent(int i)
+    {
+        return (i / 2);
+    }
+    int left(int i)
+    {
+        return (i * 2);
+    }
+    int right(int i)
+    {
+        return (i * 2) + 1;
+    }
+    void push(T k)
+    {
+        if (cnt == n )
+        {
+            cout << "\nOverflow: Couldn't insert key.\n";
+            return;
+        }
+        cnt++;
+        har[cnt] = k;
+        int i = cnt;
+        while (i != 1 and har[parent(i)] > har[i])
+        {
+            Swap(har[i], har[parent(i)]);
+            i = parent(i);
+        }
+    }
+    void decreaseKey(int i, T val)
+    {
+        har[i] = val;
+        while (i != 1 and har[parent(i)] > har[i])
+        {
+            Swap(har[i], har[parent(i)]);
+            i = parent(i);
+        }
+    }
+    void minHeapify(int i)
+    {
+        int l = left(i);
+        int r = right(i);
+        int smallest = i;
+        if (l <= cnt and har[l] < har[i])
+        {
+            smallest = l;
+        }
+        if (r <= cnt and har[r] < har[smallest])
+        {
+            smallest = r;
+        }
+        if (smallest != i)
+        {
+            Swap(har[i], har[smallest]);
+            minHeapify(smallest);
+        }
+    }
+    T extractMin()
+    {
+        if (this->cnt < 1)
+        {
+            return INT_MAX;
+        }
+        if (cnt == 1)
+        {
+            cnt--;
+            return har[cnt];
+            
+        }
+
+        int root = har[1];
+        har[1] = har[cnt];
+        cnt--;
+        minHeapify(1);
+
+        return root;
+    }
+    void pop(){
+        if(cnt==0){
+            return;
+        }
+        extractMin();
+    }
+    void deleteKey(int i)
+    {
+        decreaseKey(i, INT_MIN);
+        extractMin();
+    }
+    T top()
+    {
+        if(cnt==0){
+            return -1;
+        }
+        return har[1];
+    }
+    int size(){
+        return cnt;
+    }
+};
+template <typename T>
+
+class Priority_Queue_high
+{
+    T *har;
+    int n;
+    int cnt;
+
+public:
+    Priority_Queue_high(int x)
+    {
+        this->n = x ;
+        this->cnt = 0;
+        har = new T[x + 1];
+    }
+    bool empty(){
+        return(!cnt);
+    }
+    bool full(){
+        return(cnt==n);
+    }
+    void Swap(T &x, T &y)
+    {
+        T temp = x;
+        x = y;
+        y = temp;
+    }
+    int parent(int i)
+    {
+        return (i / 2);
+    }
+    int left(int i)
+    {
+        return (i * 2);
+    }
+    int right(int i)
+    {
+        return (i * 2) + 1;
+    }
+    void push(T k)
+    {
+        if (cnt == n )
+        {
+            cout << "\nOverflow: Couldn't insert key.\n";
+            return;
+        }
+        cnt++;
+        har[cnt] = k;
+        int i = cnt;
+        while (i != 1 and har[parent(i)] < har[i])
+        {
+            Swap(har[i], har[parent(i)]);
+            i = parent(i);
+        }
+    }
+    void decreaseKey(int i, T val)
+    {
+        har[i] = val;
+        while (i != 1 and har[parent(i)] < har[i])
+        {
+            Swap(har[i], har[parent(i)]);
+            i = parent(i);
+        }
+    }
+    void minHeapify(int i)
+    {
+        int l = left(i);
+        int r = right(i);
+        int smallest = i;
+        if (l <= cnt and har[l] > har[i])
+        {
+            smallest = l;
+        }
+        if (r <= cnt and har[r] > har[smallest])
+        {
+            smallest = r;
+        }
+        if (smallest != i)
+        {
+            Swap(har[i], har[smallest]);
+            minHeapify(smallest);
+        }
+    }
+    T extractMin()
+    {
+        if (this->cnt < 1)
+        {
+            return INT_MAX;
+        }
+        if (cnt == 1)
+        {
+            cnt--;
+            return har[cnt];
+            
+        }
+
+        int root = har[1];
+        har[1] = har[cnt];
+        cnt--;
+        minHeapify(1);
+
+        return root;
+    }
+    void pop(){
+        if(cnt==0){
+            return;
+        }
+        extractMin();
+    }
+    void deleteKey(int i)
+    {
+        decreaseKey(i, INT_MIN);
+        extractMin();
+    }
+    T top()
+    {
+        if(cnt==0){
+            return -1;
+        }
+        return har[1];
+    }
+    int size(){
+        return cnt;
+    }
+};
+
+
 int main()
 {
-    ll n,k;
-    cin>>n>>k;
+    ll n;
+    cin >> n;
 
-
-    Circular_Queue q = Circular_Queue(n);
+    Priority_Queue_high<int> q = Priority_Queue_high<int>(n);
     for (int i = 1; i <= n; i++)
-    {
-        q.push(i);
+    {   
+        ll x;
+        cin>>x;
+        q.push(x);
+        cout<<q.top()<<" ";
     }
-    while(q.size()>1){
-        for(int i=1;i<k;i++){
-            ll z=q.front();
-            q.pop();
-            q.push(z);
-
-        }
+    cout<<endl;
+    for (int i = 1; i <= n; i++)
+    {   
+        cout<<q.top()<<" "<<q.size()<<"\n";
         q.pop();
+        cout<<q.size()<<endl;
     }
-    cout<<q.size()<<endl;
-    cout<<q.front()<<endl;
+
+    cout<<endl;
+
+    cout << q.size() << endl;
+    cout << q.top() << endl;
+    q.push(12);
+    cout << q.top() << endl;
+    q.pop();
+    cout << q.top() << endl;
+    q.pop();
+    cout<<q.top()<<endl;
+
+    
 }

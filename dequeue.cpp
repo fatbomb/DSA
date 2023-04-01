@@ -2,7 +2,6 @@
 
 using namespace std;
 int const N=1e5;
-
 class MycircularDequeue{
     int *arr;
     int cnt;

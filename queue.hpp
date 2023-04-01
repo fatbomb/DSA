@@ -1,10 +1,10 @@
 #include "linked_list.hpp"
 
 const int X = 1e5;
-
+template <typename T>
 class Queue
 {
-    linked_list l1;
+    linked_list<T> l1=linked_list<T>();
     int cnt = 0;
 
 public:
@@ -16,7 +16,7 @@ public:
         }
         return false;
     }
-    ll front()
+    T front()
     {
         if (empty())
         {
@@ -25,7 +25,7 @@ public:
         }
         return l1.head->data;
     }
-    void push(ll n)
+    void push(T n)
     {
         l1.insAttail(n);
         cnt++;
@@ -58,9 +58,10 @@ public:
         l1.display();
     }
 };
+template <typename T>
 class Queue_array
 {
-    int *ar;
+    T *ar;
     int f;
     int l;
     int n;
@@ -70,7 +71,7 @@ public:
     Queue_array(int x = X)
     {
         n = x;
-        ar = new int[x];
+        ar = new T[x];
         f = 0;
         l = -1;
         cnt = 0;
@@ -83,7 +84,7 @@ public:
         }
         return false;
     }
-    int front()
+    T front()
     {
         if (empty())
         {
@@ -102,7 +103,7 @@ public:
         cnt--;
         f++;
     }
-    void push(int x)
+    void push(T x)
     {
         if (empty())
         {
@@ -145,9 +146,10 @@ public:
 };
 // #include<bits/stdc++.h>
 // const int N = 1e5;
+template <typename T>
 class Circular_Queue
 {
-    int *ar;
+    T *ar;
     int f;
     int l;
     int n;
@@ -156,7 +158,7 @@ class Circular_Queue
 public:
     Circular_Queue(int x = X)
     {
-        ar = new int[x];
+        ar = new T[x];
         n = x;
         f = 0;
         l = -1;
@@ -178,7 +180,7 @@ public:
         }
         return false;
     }
-    void push(int x)
+    void push(T x)
     {
         if (full())
         {
@@ -211,7 +213,7 @@ public:
         l = -1;
         cnt = 0;
     }
-    int front()
+    T front()
     {
         if (empty())
         {
@@ -292,11 +294,12 @@ public:
         l1.display();
     }
 };
+template <typename T>
 class Node
 {
 public:
-    int data;
-    Node *next;
+    T data;
+    Node<T> *next;
 
     Node()
     {
@@ -317,20 +320,21 @@ public:
     }
 };
 
+template <typename T>
 class QueueLL
 {
 private:
-    Node *start;
-    Node *end;
+    Node<T> *start;
+    Node<T> *end;
     int count;
     int limit;
 
 public:
     QueueLL();
     QueueLL(int sz);
-    void enqueue(int num);
+    void enqueue(T num);
     void dequeue();
-    int front();
+    T front();
     bool isEmpty();
     bool isFull();
     void display();
@@ -339,24 +343,24 @@ public:
         return this->count;
     }
 };
-
-QueueLL::QueueLL()
+template <typename T>
+QueueLL<T>::QueueLL()
 {
     this->start = NULL;
     this->end = NULL;
     this->count = 0;
     this->limit = INT_MAX;
 }
-
-QueueLL::QueueLL(int sz)
+template <typename T>
+QueueLL<T>::QueueLL(int sz)
 {
     this->start = NULL;
     this->end = NULL;
     this->count = 0;
     this->limit = sz;
 }
-
-void QueueLL::enqueue(int num)
+template <typename T>
+void QueueLL<T>::enqueue(T num)
 {
     if (this->count + 1 > this->limit)
     {
@@ -364,7 +368,7 @@ void QueueLL::enqueue(int num)
         return;
     }
 
-    Node *newNode = new Node(num);
+    Node<T> *newNode = new Node<T>(num);
     if (this->count == 0)
     {
         this->start = newNode;
@@ -379,8 +383,8 @@ void QueueLL::enqueue(int num)
 
     this->count = this->count + 1;
 }
-
-void QueueLL::dequeue()
+template <typename T>
+void QueueLL<T>::dequeue()
 {
     if (this->count <= 0)
     {
@@ -401,23 +405,23 @@ void QueueLL::dequeue()
     this->start = this->start->next;
     this->count = this->count - 1;
 }
-
-int QueueLL::front()
+template <typename T>
+T QueueLL<T>::front()
 {
     return this->start->data;
 }
-
-bool QueueLL::isEmpty()
+template <typename T>
+bool QueueLL<T>::isEmpty()
 {
     return (this->count == 0);
 }
-
-bool QueueLL::isFull()
+template <typename T>
+bool QueueLL<T>::isFull()
 {
     return (this->count == this->limit);
 }
-
-void QueueLL::display()
+template <typename T>
+void QueueLL<T>::display()
 {
     Node *curr = this->start;
 
@@ -442,3 +446,104 @@ void QueueLL::display()
     }
     cout << endl;
 }
+template <typename T>
+class MycircularDequeue{
+    T *arr;
+    int cnt;
+    int f;
+    int l;
+    int n;
+    public:
+    MycircularDequeue(int x=1e6){
+        n=x;
+        arr = new T[n];
+        cnt=0;
+        f=0;
+        l=-1;
+    }
+    bool isEmpty(){
+        return(!cnt);
+    }
+    bool isFull(){
+        return(cnt==n);
+    }
+    void addFront(T x){
+        if(cnt==n){
+            cout<<"Q is full.\n";
+            return;
+        }
+        if(f==0){
+            f=n-1;
+            arr[f]=x;
+            cnt++;
+            return;
+        }
+        f--;
+        cnt++;
+        arr[f]=x;
+
+    }
+    void addRear(T x){
+        if(cnt==n){
+            cout<<"Queue is full.\n";
+            return;
+        }
+        l++;
+        l%=n;
+        arr[l]=x;
+        cnt++;
+    }
+    void removeFront(){
+        if(isEmpty()){
+            cout<<"Empty Queue.\n";
+            return;
+        }
+        cnt--;
+        f++;
+        f%=n;
+    }
+    T front(){
+        if(empty()){
+            return -1;
+        }
+        return arr[f];
+
+    }
+    T back(){
+        if(empty()){
+            return -1;
+        }
+        return arr[l];
+    }
+    void removeRear(){
+        if(isEmpty()){
+            cout<<"Empty Queue.\n";
+            return;
+        }
+        cnt--;
+        if(l==0){
+            l=n-1;
+        }
+        else{
+            l--;
+        }
+    }
+    void display(){
+        if (isEmpty())
+        {
+            return;
+        }
+        int i = f;
+        while (i != l)
+        {
+            cout << arr[i] << " ";
+            i++;
+            i %= n;
+        }
+        cout << arr[l] << endl;
+    }
+
+
+
+
+};

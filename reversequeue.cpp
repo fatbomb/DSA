@@ -48,8 +48,8 @@ void reversequeue(Queue_string &q){
 
 
 } */
-Queue smallx(Queue &q,int k){
-    Queue r,p;
+Queue<int> smallx(Queue<int> &q,int k){
+    Queue<int> r,p;
     int sum=0,z=q.size(),c=0;
     while(q.size()>0){
         if((sum+q.front())<=k){
@@ -89,7 +89,7 @@ Queue smallx(Queue &q,int k){
 }
 
 int main(){
-    Queue q;
+    Queue<int> q;
     int n,k;
     cin>>n;
     for(int i=0;i<n;i++){
@@ -99,7 +99,7 @@ int main(){
     }
     cin>>k;
     //q.display();
-    Queue p = smallx(q,k);
+    Queue<int> p = smallx(q,k);
     //p.display();
     cout<<p.size();
     // while(!p.empty()){

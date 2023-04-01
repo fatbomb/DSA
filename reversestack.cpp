@@ -1,5 +1,5 @@
 #include "stack.hpp"
-void insertAtbottom(StackV1_1 &st,int ele){
+void insertAtbottom(StackV1_1<int> &st,int ele){
     if(st.empty()){
         st.push(ele);
         return;
@@ -11,7 +11,7 @@ void insertAtbottom(StackV1_1 &st,int ele){
     st.push(tople);
 }
 
-void reverse(StackV1_1 &st){
+void reverse(StackV1_1<int> &st){
     if(st.empty()){
         return;
     }
@@ -21,7 +21,7 @@ void reverse(StackV1_1 &st){
     insertAtbottom(st,ele);
 }
 int main(){
-    StackV1_1 st;
+    StackV1_1<int> st;
     int n;
     cin>>n;
     for(int i=0;i<n;i++){

@@ -51,23 +51,23 @@ public:
         }
         return ar[top];
     }
-    int size()
-    {
-        return top + 1;
+    int size(){
+        return top+1;
     }
 };
 // stack using linked list
-
+template <typename T>
 class StackV1_1
 {
-    doubly_linked_list l1 = doubly_linked_list();
-    int count = 0;
+    doubly_linked_list<T> l1 = doubly_linked_list<T>();
+    int count ;
     int n;
 
 public:
     StackV1_1(int x = INT_MAX)
     {
         n = x;
+        count = 0;
     }
     bool empty()
     {
@@ -77,7 +77,7 @@ public:
     {
         return (count == n);
     }
-    void push(int x)
+    void push(T x)
     {
         if (full())
         {
@@ -97,7 +97,7 @@ public:
         l1.delAttail();
         count--;
     }
-    int top()
+    T top()
     {
         if (empty())
         {
@@ -106,21 +106,22 @@ public:
         }
         return l1.tail->data;
     }
-    int size()
-    {
+    int size(){
         return count;
     }
 };
+template <typename T>
 class StackV1_2
 {
-    linked_list l1 = linked_list();
+    linked_list<T> l1 = linked_list<T>();
     int n;
-    int cnt = 0;
+    int cnt;
 
 public:
     StackV1_2(int x = INT_MAX)
     {
         n = x;
+        cnt = 0;
     }
     bool empty()
     {
@@ -130,7 +131,7 @@ public:
     {
         return (cnt == n);
     }
-    void push(int x)
+    void push(T x)
     {
         if (full())
         {
@@ -150,7 +151,7 @@ public:
         l1.delAthead();
         cnt--;
     }
-    int top()
+    T top()
     {
         if (empty())
         {
@@ -169,16 +170,17 @@ public:
         {
             return;
         }
-        int k = st.top();
+        T k = st.top();
         st.pop();
         display(st);
         cout << k << " ";
         st.push(k);
     }
 };
+template <typename T>
 class StackV1_3
 {
-    linked_list l1 = linked_list();
+    linked_list<T> l1 = linked_list<T>();
     int n;
     int cnt = 0;
 
@@ -195,7 +197,7 @@ public:
     {
         return (cnt == n);
     }
-    void push(int x)
+    void push(T x)
     {
         if (full())
         {
@@ -215,7 +217,7 @@ public:
         l1.delAttail();
         cnt--;
     }
-    int top()
+    T top()
     {
         if (empty())
         {
@@ -295,14 +297,14 @@ public:
 };
 int main()
 {
-    StackV1_1 st = StackV1_1(30);
+    StackV1_1<int> st = StackV1_1<int>(30);
     for (int i = 25; i <= 30; i++)
     {
         st.push(i);
     }
     cout << st.top() << endl;
     cout << st.size() << endl;
-    StackV1_2 s = StackV1_2(30);
+    StackV1_2<int> s = StackV1_2<int>(30);
     for (int i = 0; i <= 30; i++)
     {
         s.push(i);

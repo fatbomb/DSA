@@ -56,10 +56,10 @@ public:
     }
 };
 // stack using linked list
-
+template <typename T>
 class StackV1_1
 {
-    doubly_linked_list l1 = doubly_linked_list();
+    doubly_linked_list<T> l1 = doubly_linked_list<T>();
     int count ;
     int n;
 
@@ -77,7 +77,7 @@ public:
     {
         return (count == n);
     }
-    void push(int x)
+    void push(T x)
     {
         if (full())
         {
@@ -97,7 +97,7 @@ public:
         l1.delAttail();
         count--;
     }
-    int top()
+    T top()
     {
         if (empty())
         {
@@ -110,9 +110,10 @@ public:
         return count;
     }
 };
+template <typename T>
 class StackV1_2
 {
-    linked_list l1 = linked_list();
+    linked_list<T> l1 = linked_list<T>();
     int n;
     int cnt;
 
@@ -130,7 +131,7 @@ public:
     {
         return (cnt == n);
     }
-    void push(int x)
+    void push(T x)
     {
         if (full())
         {
@@ -150,7 +151,7 @@ public:
         l1.delAthead();
         cnt--;
     }
-    int top()
+    T top()
     {
         if (empty())
         {
@@ -169,7 +170,7 @@ public:
         {
             return;
         }
-        int k = st.top();
+        T k = st.top();
         st.pop();
         display(st);
         cout << k << " ";

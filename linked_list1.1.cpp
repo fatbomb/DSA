@@ -12,24 +12,26 @@ typedef long long ll;
          next=NULL;
      }
 }; */
+template <typename T>
 class node
 {
 public:
-    ll data;
-    node *next;
-    node(ll val)
+    T data;
+    node<T> *next;
+    node(T val)
     {
         data = val;
         next = NULL;
     }
 };
+template <typename T>
 class doublyNode
 {
 public:
-    ll data;
-    doublyNode *prev;
-    doublyNode *next;
-    doublyNode(ll val)
+    T data;
+    doublyNode<T> *prev;
+    doublyNode<T> *next;
+    doublyNode(T val)
     {
         data = val;
         prev = NULL;
@@ -38,21 +40,22 @@ public:
 };
 
 // Singly linked List.
+template <typename T>
 class linked_list
 {
 
 public:
-    node *head;
-    node *tail;
+    node<T> *head;
+    node<T> *tail;
     linked_list()
     {
         head = NULL;
         tail = NULL;
     }
-    void insAthead(ll val)
+    void insAthead(T val)
     {
         
-        node *n = new node(val);
+        node<T> *n = new node<T>(val);
         n->next = head;
         head = n;
         if(head->next==NULL){
@@ -60,7 +63,7 @@ public:
         }
     }
 
-    void insAttail(ll val)
+    void insAttail(T val)
     {
 
         if (head == NULL)
@@ -68,12 +71,12 @@ public:
             insAthead(val); // seting the firsrt node.
             return;
         }
-        node *n = new node(val);
-        node *temp = tail;
+        node<T> *n = new node<T>(val);
+        node<T> *temp = tail;
         tail->next=n;
         tail=n;
     }
-    void insAtpos(ll val, ll pos)
+    void insAtpos(T val, ll pos)
     {
         if (pos == 0)
         {
@@ -85,8 +88,8 @@ public:
             return;
         }
 
-        node *n = new node(val);
-        node *temp = head;
+        node<T> *n = new node<T>(val);
+        node<T> *temp = head;
         for (int i = 1; i < pos; i++)
         {
             temp = temp->next;
@@ -108,7 +111,7 @@ public:
         {
             return;
         }
-        node *temp = head;
+        node<T> *temp = head;
         head = head->next;
         if(head==NULL){
             tail=NULL;
@@ -126,7 +129,7 @@ public:
             head = head->next;
             return;
         }
-        node *temp = head;
+        node<T> *temp = head;
         for (int i = 1; i < pos; i++)
         {
             temp = temp->next;
@@ -135,7 +138,7 @@ public:
                 return;
             }
         }
-        node *temp1 = temp->next;
+        node<T> *temp1 = temp->next;
         if(temp1->next==NULL){
             tail=temp;
         }
@@ -153,12 +156,12 @@ public:
             delAthead();
             return;
         }
-        node *temp = head;
+        node<T> *temp = head;
         while (temp->next->next != NULL)
         {
             temp = temp->next;
         }
-        node *temp1 = temp->next;
+        node<T> *temp1 = temp->next;
         temp->next = NULL;
         tail=temp;
         free(temp1);
@@ -166,7 +169,7 @@ public:
 
     void display()
     {
-        node *temp = head;
+        node<T> *temp = head;
         while (temp != NULL)
         {
             cout << temp->data << "->";
@@ -174,9 +177,9 @@ public:
         }
         cout << "NULL\n";
     }
-    bool search(ll key)
+    bool search(T key)
     {
-        node *temp = head;
+        node<T> *temp = head;
         while (temp != NULL)
         {
             if (temp->data == key)
@@ -190,19 +193,20 @@ public:
 };
 
 // Circular linked List
+template <typename T>
 class Circular_linked_list
 {
 public:
-    node *head;
-    node* tail;
+    node<T> *head;
+    node<T> *tail;
     Circular_linked_list()
     {
         head = NULL;
         tail = NULL;
     }
-    void insAthead(int val)
+    void insAthead(T val)
     {
-        node *n = new node(val);
+        node<T> *n = new node<T>(val);
         if (head == NULL)
         {
             head = n;
@@ -211,7 +215,7 @@ public:
 
             return;
         }
-        node *temp = head;
+        node<T> *temp = head;
         while (temp->next != head)
         {
             temp = temp->next;
@@ -220,20 +224,20 @@ public:
         head = n;
         temp->next = head;
     }
-    void insAttail(int val)
+    void insAttail(T val)
     {
         if (head == NULL)
         {
             insAthead(val);
             return;
         }
-        node *n = new node(val);
-        node *temp = tail;
+        node<T> *n = new node<T>(val);
+        node<T> *temp = tail;
         temp->next = n;
         n->next = head;
         tail=n;
     }
-    void insAtpos(ll val, ll pos)
+    void insAtpos(T val, ll pos)
     {
         if (pos == 0)
         {
@@ -245,14 +249,14 @@ public:
             return;
         }
 
-        node *temp = head;
+        node<T> *temp = head;
         for (int i = 1; i < pos; i++)
         {
             temp = temp->next;
             if (temp == head)
                 return;
         }
-        node *n = new node(val);
+        node<T> *n = new node<T>(val);
         n->next = temp->next;
         if(temp->next==head){
             tail=n;
@@ -266,8 +270,8 @@ public:
         {
             return;
         }
-        node *temp = tail;
-        node *temp1 = head;
+        node<T> *temp = tail;
+        node<T> *temp1 = head;
         head = head->next;
         if(head==NULL){
             tail=NULL;
@@ -287,13 +291,13 @@ public:
             head = NULL;
             return;
         }
-        node *temp = head;
+        node<T> *temp = head;
         while (temp->next->next != head)
         {
             // cout<<temp->data<<" ";
             temp = temp->next;
         }
-        node *temp1 = temp->next;
+        node<T> *temp1 = temp->next;
         temp->next = head;
         tail==temp;
         free(temp1);
@@ -309,7 +313,7 @@ public:
             delAthead();
             return;
         }
-        node *temp = head;
+        node<T> *temp = head;
         for (int i = 1; i < pos; i++)
         {
             temp = temp->next;
@@ -318,7 +322,7 @@ public:
                 return;
             }
         }
-        node *temp1 = (temp->next);
+        node<T> *temp1 = (temp->next);
         if(temp1->next==head){
             tail=temp;
         }
@@ -333,7 +337,7 @@ public:
             cout << "NULL\n";
             return;
         }
-        node *temp = head;
+        node<T> *temp = head;
         while (temp != NULL)
         {
             cout << temp->data << "->";
@@ -346,9 +350,9 @@ public:
         // cout<<temp->data<<" ";
         cout << "Head\n";
     }
-    bool search(ll key)
+    bool search(T key)
     {
-        node *temp = head;
+        node<T> *temp = head;
         while (temp != NULL)
         {
             if (temp->data == key)
@@ -364,11 +368,12 @@ public:
         return false;
     }
 };
+template <typename T>
 class doubly_linked_list
 {
 public:
-    doublyNode *head;
-    doublyNode *tail;
+    doublyNode<T> *head;
+    doublyNode<T> *tail;
     doubly_linked_list()
     {
         head = NULL;
@@ -376,7 +381,7 @@ public:
     }
     void insAthead(ll val)
     {
-        doublyNode *n = new doublyNode(val);
+        doublyNode<T> *n = new doublyNode<T>(val);
         if (head != NULL)
         {
             head->prev = n;
@@ -388,20 +393,20 @@ public:
         n->next = head;
         head = n;
     }
-    void insAttail(ll val)
+    void insAttail(T val)
     {
         if (head == NULL)
         {
             insAthead(val);
             return;
         }
-        doublyNode *n = new doublyNode(val);
-        doublyNode *temp = tail;
+        doublyNode<T> *n = new doublyNode<T>(val);
+        doublyNode<T> *temp = tail;
         temp->next = n;
         n->prev = temp;
         tail = n;
     }
-    void insAtpos(ll val, ll pos)
+    void insAtpos(T val, ll pos)
     {
         if (pos == 0)
         {
@@ -412,8 +417,8 @@ public:
         {
             return;
         }
-        doublyNode *n = new doublyNode(val);
-        doublyNode *temp = head;
+        doublyNode<T> *n = new doublyNode<T>(val);
+        doublyNode<T> *temp = head;
         for (int i = 1; i < pos; i++)
         {
             temp = temp->next;
@@ -440,7 +445,7 @@ public:
         {
             return;
         }
-        doublyNode *temp = head;
+        doublyNode<T> *temp = head;
         head = head->next;
         if(head==NULL){
             tail=NULL;
@@ -460,7 +465,7 @@ public:
             delAthead();
             return;
         }
-        doublyNode *temp = tail;
+        doublyNode<T> *temp = tail;
         tail=tail->prev;
         tail->next = NULL;
         free(temp);
@@ -476,7 +481,7 @@ public:
         {
             return;
         }
-        doublyNode *temp = head;
+        doublyNode<T> *temp = head;
         for (int i = 1; i < pos; i++)
         {
             temp = temp->next;
@@ -485,7 +490,7 @@ public:
                 return;
             }
         }
-        doublyNode *temp1 = temp->next;
+        doublyNode<T> *temp1 = temp->next;
         
         if (temp->next->next != NULL)
         {
@@ -512,7 +517,7 @@ public:
         {
             return;
         }
-        doublyNode *temp = tail;
+        doublyNode<T> *temp = tail;
         for (int i = 2; i < pos; i++)
         {
             temp = temp->prev;
@@ -521,7 +526,7 @@ public:
                 return;
             }
         }
-        doublyNode *temp1 = temp->prev;
+        doublyNode<T> *temp1 = temp->prev;
         
         if (temp->prev->prev != NULL)
         {
@@ -541,7 +546,7 @@ public:
     void displayfromfront()
     {
         cout << "Display from front:\n";
-        doublyNode *temp = head;
+        doublyNode<T> *temp = head;
         while (temp != NULL)
         {
             cout << temp->data << "->";
@@ -551,7 +556,7 @@ public:
     }
     void displayfromback()
     {
-        doublyNode *temp=tail;
+        doublyNode<T> *temp=tail;
         cout << "Dilplay from back:\n";
         while (temp != NULL)
         {
@@ -562,7 +567,7 @@ public:
     }
     bool search(ll key)
     {
-        doublyNode *temp = head;
+        doublyNode<T> *temp = head;
         while (temp != NULL)
         {
             if (temp->data == key)
@@ -576,8 +581,8 @@ public:
 };
 int main()
 {
-    doubly_linked_list l1;
-    linked_list l2;
+    doubly_linked_list<int> l1;
+    linked_list<int> l2;
     //l1.display();
     for (ll i = 1; i <= 6; i++)
     {
