@@ -246,7 +246,6 @@ public:
     bool marked;
     Node()
     {
-        this->value = 0;
         this->degree = 0;
         this->parent = this->child = this->sibling = NULL;
     }
@@ -457,14 +456,16 @@ int main()
     //     cout << ar[i] << " ";
     // }
     // cout << endl;
-    BinomialHeap<int> *bh=new BinomialHeap<int>();
-    Node<int> *x=new Node(11);
-    Node<int> *y=new Node(5);
+    BinomialHeap<string> *bh=new BinomialHeap<string>();
+    string a[6]={"dip", "dipto","nill","siam","ayondip","arnob"};
+    Node<string> *x= new Node(a[0]);
+    Node<string> *y=new Node(a[1]);
     bh->insert(x);
     bh->insert(y);
-    bh->insert(new Node<int>(3));
-    bh->insert(new Node<int>(8));
-    bh->insert(new Node<int>(4));
+    bh->insert(new Node<string>(a[2]));
+    bh->insert(new Node<string>(a[3]));
+    bh->insert(new Node<string>(a[4]));
+    bh->insert(new Node<string>(a[5]));
 
     //bh->decreaseKey(x,2);
     while (!bh->isEmpty())
