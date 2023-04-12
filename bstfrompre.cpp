@@ -1,6 +1,6 @@
 #include "bst1.hpp"
 int sum=0;
-node* bstToGst(node* root){
+node<int>* bstToGst(node<int>* root){
     if(root==NULL){
         return NULL;
     }
@@ -12,7 +12,7 @@ node* bstToGst(node* root){
 
 }
 int main(){
-    BinaryTree t= BinaryTree();
+    BinaryTree<int> t= BinaryTree<int>();
     int n;
     cin>>n;
     while(n--){

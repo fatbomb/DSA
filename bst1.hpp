@@ -2,14 +2,15 @@
 
 using namespace std;
 
+template<typename T>
 class node
 {
 public:
-    int data;
-    node *left;
-    node *right;
+    T data;
+    node<T> *left;
+    node<T> *right;
     int lev;
-    node(int val)
+    node(T val)
     {
         data = val;
         left = NULL;
@@ -17,11 +18,12 @@ public:
         lev = 0;
     }
 };
+template<typename T>
 class BinaryTree
 {
 
 public:
-    node *root;
+    node<T> *root;
     int node_count;
     BinaryTree()
     {
@@ -29,9 +31,9 @@ public:
         // level=-1;
         node_count = 0;
     }
-    void addnode(int val)
+    void addnode(T val)
     {
-        node *n = new node(val);
+        node<T> *n = new node<T>(val);
         if (root == NULL)
         {
             root = n;
@@ -40,8 +42,8 @@ public:
             node_count++;
             return;
         }
-        node *temp = root;
-        node *par;
+        node<T> *temp = root;
+        node<T> *par;
         while (true)
         {
             par = temp;
@@ -71,13 +73,13 @@ public:
             }
         }
     }
-    void Addnode(node *&t, int val)
+    void Addnode(node<T> *&t, T val)
     {
         if (t->data <= val)
         {
             if (t->right == NULL)
             {
-                node *n = new node(val);
+                node<T> *n = new node<T>(val);
                 n->lev = t->lev + 1;
                 t->right = n;
                 node_count++;
@@ -92,7 +94,7 @@ public:
         {
             if (t->left == NULL)
             {
-                node *n = new node(val);
+                node<T> *n = new node<T>(val);
                 n->lev = t->lev + 1;
                 t->left = n;
                 node_count++;
@@ -103,11 +105,11 @@ public:
             }
         }
     }
-    void ADDnode(int val)
+    void ADDnode(T val)
     {
         if (root == NULL)
         {
-            node *n = new node(val);
+            node<T> *n = new node<T>(val);
             n->lev = 0;
             root = n;
             return;
@@ -116,7 +118,7 @@ public:
         Addnode(root, val);
     }
 
-    void preOrderTravarsal(node *temp)
+    void preOrderTravarsal(node<T> *temp)
     {
         if (temp != NULL)
         {
@@ -132,7 +134,7 @@ public:
         //
     }
 
-    void inOrderTravarsal(node *temp)
+    void inOrderTravarsal(node<T> *temp)
     {
         if (temp != NULL)
         {
@@ -146,7 +148,7 @@ public:
         inOrderTravarsal(root);
         cout << endl;
     }
-    void postOrderTravarsal(node *temp)
+    void postOrderTravarsal(node<T> *temp)
     {
         if (temp != NULL)
         {
@@ -160,7 +162,7 @@ public:
         postOrderTravarsal(root);
         cout << endl;
     }
-    node *_search(int val, node *temp)
+    node<T> *_search(T val, node<T> *temp)
     {
         if (temp == NULL)
         {
@@ -179,14 +181,14 @@ public:
             return _search(val, temp->right);
         }
     }
-    bool search(int val)
+    bool search(T val)
     {
         if (_search(val, root) == NULL)
             return false;
         return true;
     }
 
-    node *find_min(node *temp)
+    node<T> *find_min(node<T> *temp)
     {
         while (temp and temp->left != NULL)
         {
@@ -194,7 +196,7 @@ public:
         }
         return temp;
     }
-    node *Delete(node *temp, int val)
+    node<T> *Delete(node<T> *temp, T val)
     {
         if (temp == NULL)
         {
@@ -212,7 +214,7 @@ public:
         {
             if (temp->left == NULL)
             {
-                node *temp1 = temp->right;
+                node<T> *temp1 = temp->right;
                 if (temp->right != NULL)
                     temp1->lev = temp->lev;
                 // cout<<"deleted Data1\n"<<temp->data<<endl;
@@ -223,7 +225,7 @@ public:
             }
             else if (root->right == NULL)
             {
-                node *temp1 = temp->left;
+                node<T> *temp1 = temp->left;
                 if (temp->left != NULL)
                     temp1->lev = temp->lev;
                 free(temp);
@@ -234,7 +236,7 @@ public:
             }
             else
             {
-                node *temp1 = find_min(temp->right);
+                node<T> *temp1 = find_min(temp->right);
                 temp1->lev = temp->lev;
                 temp = temp1;
 
@@ -244,7 +246,7 @@ public:
         }
         return temp;
     }
-    bool Isskew(node *root)
+    bool Isskew(node<T> *root)
     {
         if (root->left == NULL and root->right == NULL)
         {
@@ -271,7 +273,7 @@ public:
         }
         return Isskew(root);
     }
-    bool IS_left(node *root)
+    bool IS_left(node<T> *root)
     {
         if (root->left == NULL and root->right == NULL)
         {
@@ -292,11 +294,11 @@ public:
         return IS_left(root);
     }
 
-    void delnode(int val)
+    void delnode(T val)
     {
         this->root = Delete(root, val);
     }
-    bool IS_right(node *root)
+    bool IS_right(node<T> *root)
     {
         if (root->left == NULL and root->right == NULL)
         {
@@ -316,7 +318,7 @@ public:
         }
         return IS_right(root);
     }
-    bool is_f(node *root)
+    bool is_f(node<T> *root)
     {
         if (root->left == NULL and root->right == NULL)
         {
@@ -338,14 +340,14 @@ public:
     }
     int depth()
     {
-        node *temp = root;
+        node<T> *temp = root;
         while (temp->left != NULL)
         {
             temp = temp->left;
         }
         return temp->lev;
     }
-    bool is_per(node *n, int d)
+    bool is_per(node<T> *n, int d)
     {
         if (n == NULL)
         {
@@ -366,7 +368,7 @@ public:
         int d = depth();
         return is_per(root, d);
     }
-    bool is_comp(node *root, int ind)
+    bool is_comp(node<T> *root, int ind)
     {
         if (root == NULL)
         {
@@ -386,7 +388,7 @@ public:
         }
         return is_comp(root, 0);
     }
-    int height(node *root)
+    int height(node<T> *root)
     {
         if (root == NULL)
         {
@@ -394,7 +396,7 @@ public:
         }
         return 1 + max(height(root->left), height(root->right));
     }
-    bool is_ba(node *root)
+    bool is_ba(node<T> *root)
     {
         int lh, rh;
         if (root == NULL)
