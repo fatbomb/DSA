@@ -206,7 +206,7 @@ public:
         {
             temp->left = Delete(temp->left, val);
         }
-        else if (val < temp->data)
+        else if (val > temp->data)
         {
             temp->right = Delete(temp->right, val);
         }
