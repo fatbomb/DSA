@@ -1,0 +1,107 @@
+"boilerplate": {
+		"prefix": "code st",
+		"body": [
+			"#include<bits/stdc++.h>\n",
+			"using namespace std;\n",
+			"int main(){",
+			"\t$2",
+			"\treturn 0;",
+			"}"
+		],
+		"description": "boiler plate code"
+	},
+	"for loop with 0":{
+		"prefix": "lp",
+		"body": [
+			"for(int i=0;i<n;i++){",
+			"\t$1/*code*/",
+			"}"
+		
+		],
+		"description": "for loop with 0"
+
+	},
+	"for loop with 1":{
+		"prefix": "lp1",
+		"body": [
+			"for(int i=1;i<=n;i++){",
+			"\t$1/*code*/",
+			"}"
+		
+		],
+		"description": "for loop with 1"
+
+	},
+	"reverse lopp":{
+		"prefix": "rlp",
+		"body": [
+			"for(int i=n-1;i>=0;i--){",
+			"\t$1/*code*/",
+			"}"
+		],
+		"description": "reverse loop"
+	},
+	"reverse lopp with n":{
+		"prefix": "rlpn",
+		"body": [
+			"for(int i=n;i>0;i--){",
+			"\t$1/*code*/",
+			"}"
+		],
+		"description": "reverse loop"
+	},
+	"competetive programming": {
+		"prefix": "cp",
+		"body": [
+			"//Proud to be a Bangali :)",
+			"#include<bits/stdc++.h>",
+			"#include <ext/pb_ds/assoc_container.hpp>\n#include <ext/pb_ds/tree_policy.hpp>\n",
+			"using namespace std;\nusing namespace __gnu_pbds;\n",
+			"typedef long long ll;\n#define endl \"\\n\" \n",
+			"#define ordered_set tree<ll, null_type, less_equal<ll>, rb_tree_tag, tree_order_statistics_node_update>",
+			"#define arektu_row_na_somoy ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);\n\nll const N=2e5+7;\n\n",
+			"void caes(){",
+			"\t$1/*code*/\n}",
+			"void somadhan(){",
+			"\tll t=1;",
+			"\t//cin>>t;",
+			"\twhile(t--){\n\t\tcaes();\n\t}\n}",
+			"int main(){",
+			"\tarektu_row_na_somoy",
+			"\tsomadhan();",
+			
+			"\treturn 0;",
+			"}"
+		],
+		"description": "competetive programming structure code"
+	},
+	"vector int":{
+		"prefix": "vi",
+		"body": "vector <int> v;",
+		"description": "vector int"
+	},
+	"dfs":{
+		"prefix": "dfs",
+		"body": [
+		"vector<ll> g[N];\nbool vis[N];\nll d[N],h[N];",
+		"void aro_govire_jao(ll v){\n",
+		"\tvis[v]=true;\n",
+		"\tfor(ll baccha:g[v]){\n",
+		"\t\tif(vis[baccha]){\n\t\t\tcontinue;\n\t\t}\n",
+		"\t\td[baccha]=d[v]+1;\n",
+		"\t\taro_govire_jao(baccha);\n",
+		"\t\th[v]=max(h[v],h[baccha]+1);\n\n\t}",
+		"}"
+		],
+		"description": "depth first search"
+
+	},
+	"bfs":{
+		"prefix": "bfs",
+		"body": [
+		"vector<ll> g[N];\nbool vis[N];\n",
+		"void dhape_dhape_jao(ll jamin)\n{\n\tqueue<ll> shari;\n\tshari.push(jamin);\n\tvis[jamin] = true;\n\twhile (!shari.empty())\n\t{\n\t\tll bap = shari.front();\n\t\tshari.pop();\n\t\t// cout << bap << \" \";\n\t\tfor (ll baccha : g[bap])\n\t\t{\n\t\t\tif (vis[baccha])\n\r\t\t{\n\t\t\t\tcontinue;\n\t\t\t}\n\t\t\tshari.push(baccha);\n\t\t\tvis[baccha] = true;\n\t\t}\n\t}\n\t// cout << endl;\n}",
+
+		],
+		"description": "breadth first search"
+	}
