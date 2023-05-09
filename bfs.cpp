@@ -61,7 +61,7 @@ int main(){
     BFS(g,n,1);
     print_path(7);
     cout<<endl;
-    for (size_t i = 1; i <n+1; i++)
+    for (int i = 1; i<n+1; i++)
     {
         print_path(i);
         cout<<endl;
