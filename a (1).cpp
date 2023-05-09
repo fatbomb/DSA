@@ -25,7 +25,7 @@ public:
    {
       head = NULL;
       tail = NULL;
-      cnt=0;
+      cnt = 0;
    }
    void push(int x)
    {
@@ -56,37 +56,40 @@ public:
       head = NULL;
       tail = NULL;
    }
-   /* Question no 11 binary search in linked list which is worse than the linear search. But tried to 
+   /* Question no 11 binary search in linked list which is worse than the linear search. But tried to
    implement it in the way of binary search */
-   bool binary_search(int x){
-      node* h=head;
-      node* l=tail;
-      int low=1,high=cnt;
-      while(low<high){
-         int mid=(low+high)/2;
-         node* temp=h;
-         int k=low;
-         //cout<<mid<<endl;
-         while(k!=mid){
+   bool binary_search(int x)
+   {
+      node *h = head;
+      node *l = tail;
+      int low = 1, high = cnt;
+      while (low < high)
+      {
+         int mid = (low + high) / 2;
+         node *temp = h;
+         int k = low;
+         // cout<<mid<<endl;
+         while (k != mid)
+         {
             k++;
-            temp=temp->next;
+            temp = temp->next;
          }
-         if(temp->data==x){
+         if (temp->data == x)
+         {
             return true;
          }
-         else if(temp->data<x){
-            h=temp->next;
-            high=mid-1;
+         else if (temp->data < x)
+         {
+            h = temp->next;
+            high = mid - 1;
          }
-         else{
-            l=temp->prev;
-            low=mid+1;
+         else
+         {
+            l = temp->prev;
+            low = mid + 1;
          }
-
-
       }
       return false;
-
    }
 };
 // Stack for input stack and temp stack implemented using linked list.
@@ -141,7 +144,7 @@ public:
       cnt--;
       node *temp = l;
       l = l->prev;
-      if (cnt==0)
+      if (cnt == 0)
       {
          f = NULL;
          return;
@@ -190,15 +193,16 @@ void sortstack(Stack &s1, Stack &s2)
          int element = s1.top();
          s1.pop();
          Stack s3;
-         while(s2.empty()== false and element<s2.top()){
+         while (s2.empty() == false and element < s2.top())
+         {
             s3.push(s2.top());
             s2.pop();
          }
          s2.push(element);
-         while(!s3.empty()){
+         while (!s3.empty())
+         {
             s2.push(s3.top());
             s3.pop();
-
          }
       }
       // cnt++;
@@ -207,13 +211,13 @@ void sortstack(Stack &s1, Stack &s2)
       // }
    }
 
-   //cout << s2.empty() << endl;
+   // cout << s2.empty() << endl;
    while (!s2.empty())
    {
       s1.push(s2.top());
       s2.pop();
    }
-   //s1.display();
+   // s1.display();
 }
 /* Merge sort function used in the bucket sort */
 void merge(int ar[], int l, int r, int p)
@@ -265,49 +269,57 @@ void merge_sort(int ar[], int l, int r)
 }
 /*bucket sort for sorting the link list. here i used just nodw data instead of array elemrnt and for tracking the number
 elements present in the array I took a additional array*/
-void bucket_sort(linked_list &l1, int mn, int mx, int n){
+void bucket_sort(linked_list &l1, int mn, int mx, int n)
+{
    int ar[15][n];
    int b[15];
-   int range= (mx-mn)/15;
-   memset(b,0,sizeof b);
-   //cout<<1<<endl;
+   int range = (mx - mn) / 15;
+   memset(b, 0, sizeof b);
+   // cout<<1<<endl;
 
-   node * temp=l1.head;
-   //cout<<temp->data<<endl;
-   while(temp!=NULL){
-      double z=((temp->data-mn)/range);
-      int x=z;
-      double diff=z-x;
-      if(temp->data!=mn and diff==0 and x!=0){
-         ar[x-1][b[x-1]]=temp->data;
-         b[x-1]++;
+   node *temp = l1.head;
+   // cout<<temp->data<<endl;
+   while (temp != NULL)
+   {
+      double z = ((temp->data - mn) / range);
+      int x = z;
+      double diff = z - x;
+      if (temp->data != mn and diff == 0 and x != 0)
+      {
+         ar[x - 1][b[x - 1]] = temp->data;
+         b[x - 1]++;
       }
-      else{
-         ar[x][b[x]]=temp->data;
+      else
+      {
+         ar[x][b[x]] = temp->data;
          b[x]++;
       }
-      //cout<<b[x]<<endl;
-      //b[x]++;
-      //cout<<temp->data<<endl;
-      temp=temp->next;
-      
+      // cout<<b[x]<<endl;
+      // b[x]++;
+      // cout<<temp->data<<endl;
+      temp = temp->next;
    }
-   //cout<<1<<endl;
-   temp=l1.head;
-   for(int i=0;i<15;i++){
-      if(b[i]!=0){
-         merge_sort(ar[i],0,b[i]-1);
-         for(int j=0;j<b[i];j++){
-            temp->data=ar[i][j];
-            if(temp->next==NULL){
+   // cout<<1<<endl;
+   temp = l1.head;
+   for (int i = 0; i < 15; i++)
+   {
+      if (b[i] != 0)
+      {
+         merge_sort(ar[i], 0, b[i] - 1);
+         for (int j = 0; j < b[i]; j++)
+         {
+            temp->data = ar[i][j];
+            if (temp->next == NULL)
+            {
                break;
             }
-            else{
-               temp=temp->next;
+            else
+            {
+               temp = temp->next;
             }
-            //cout<<ar[i][j]<<" ";
+            // cout<<ar[i][j]<<" ";
          }
-         //cout<<endl;
+         // cout<<endl;
       }
    }
 }
@@ -334,24 +346,21 @@ int main()
          mn = ar[i];
       }
       inpuststack.push(ar[i]);
-      //cout << inpuststack.top() << endl;
+      // cout << inpuststack.top() << endl;
       slink.push(ar[i]);
    }
-   //inpuststack.display();
-   sortstack(inpuststack,tempstack);
+   // inpuststack.display();
+   sortstack(inpuststack, tempstack);
    inpuststack.display();
-   bucket_sort(slink,mn,mx,150);
+   bucket_sort(slink, mn, mx, 150);
    slink.display();
-   node* temp=slink.head;
+   node *temp = slink.head;
    /* both are the sortings work porporly there is no difference betweeen the stack and the linked list*/
-   while(!inpuststack.empty()){
-      cout<<inpuststack.top()<<"-"<<temp->data<<": "<<inpuststack.top()-temp->data<<endl;
+   while (!inpuststack.empty())
+   {
+      cout << inpuststack.top() << "-" << temp->data << ": " << inpuststack.top() - temp->data << endl;
       inpuststack.pop();
-      temp=temp->next;
+      temp = temp->next;
    }
-   cout<<slink.binary_search((slink.head->data+slink.tail->data)/2)<<endl;
-
-   
-   
-   
+   cout << slink.binary_search((slink.head->data + slink.tail->data) / 2) << endl;
 }

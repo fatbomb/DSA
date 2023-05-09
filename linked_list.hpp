@@ -879,7 +879,7 @@ public:
 
         n->next = temp->next;
         temp->next = n;
-        if (n->next = NULL)
+        if (n->next == NULL)
         {
             tail = n;
         }

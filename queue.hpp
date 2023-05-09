@@ -423,7 +423,7 @@ bool QueueLL<T>::isFull()
 template <typename T>
 void QueueLL<T>::display()
 {
-    Node *curr = this->start;
+    Node<T> *curr = this->start;
 
     // cout << "Display... ";
 
@@ -503,14 +503,14 @@ class MycircularDequeue{
         f%=n;
     }
     T front(){
-        if(empty()){
+        if(isEmpty()){
             return -1;
         }
         return arr[f];
 
     }
     T back(){
-        if(empty()){
+        if(isEmpty()){
             return -1;
         }
         return arr[l];
