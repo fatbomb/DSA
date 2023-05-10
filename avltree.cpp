@@ -46,35 +46,35 @@ public:
     {
         return (height(t->l) - height(t->r));
     }
-    avl<T> *rr_rotate(avl<T> *par)
+    avl<T> *ll_rotate(avl<T> *par)
     {
         avl<T> *t = par->r;
         par->r = t->l;
         t->l = par;
-        cout << "Right-Right Rotation" << endl;
+        cout << "Left-Left Rotation" << endl;
         return t;
     }
-    avl<T> *ll_rotate(avl<T> *par)
+    avl<T> *rr_rotate(avl<T> *par)
     {
         avl<T> *t = par->l;
         par->l = t->r;
         t->r = par;
-        cout << "Left-Left Rotation" << endl;
+        cout << "Right-Right Rotation" << endl;
         return t;
     }
     avl<T> *lr_rotate(avl<T> *par)
     {
         avl<T> *t = par->l;
-        par->l = rr_rotate(t);
+        par->l = ll_rotate(t);
         cout << "Left-Right Rotate." << endl;
-        return ll_rotate(par);
+        return rr_rotate(par);
     }
     avl<T> *rl_rotate(avl<T> *par)
     {
         avl<T> *t = par->r;
-        par->r = ll_rotate(t);
+        par->r = rr_rotate(t);
         cout << "Right-Left Rotate." << endl;
-        return rr_rotate(par);
+        return ll_rotate(par);
     }
     avl<T> *balance(avl<T> *t)
     {
