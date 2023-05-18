@@ -41,8 +41,9 @@ public:
             cout << "\nOverflow: Couldn't insert key.\n";
             return;
         }
-        cnt++;
+        
         har[cnt] = k;
+        cnt++;
         int i = cnt;
         while (i != 1 and har[parent(i)] > har[i])
         {
@@ -138,8 +139,9 @@ public:
             cout << "\nOverflow: Couldn't insert key.\n";
             return;
         }
-        cnt++;
+        
         har[cnt] = k;
+        cnt++;
         int i = cnt;
         while (i != 1 and har[parent(i)] < har[i])
         {
