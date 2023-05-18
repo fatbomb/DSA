@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Fatbomb/icpc/DSA/DSA",
-      "program": "c:/Fatbomb/icpc/DSA/DSA/build/Debug/outDebug",
+      "cwd": "c:/My Backup 1/Fatbomb/icpc/DSA/DSA",
+      "program": "c:/My Backup 1/Fatbomb/icpc/DSA/DSA/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
