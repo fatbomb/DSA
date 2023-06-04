@@ -42,8 +42,8 @@ public:
             return;
         }
         
-        har[cnt] = k;
         cnt++;
+        har[cnt] = k;
         int i = cnt;
         while (i != 1 and har[parent(i)] > har[i])
         {
@@ -87,8 +87,8 @@ public:
         }
         if (cnt == 1)
         {
-            return har[cnt];
             cnt--;
+            return har[cnt];
         }
         int root = har[1];
         har[1] = har[cnt];
@@ -105,6 +105,12 @@ public:
     int getMin()
     {
         return har[1];
+    }
+    void print(){
+        for(int i=1;i<=cnt;i++){
+            cout<<har[i]<<" ";
+        }
+        cout<<endl;
     }
 };
 class MaxHeap
@@ -140,8 +146,8 @@ public:
             return;
         }
         
-        har[cnt] = k;
         cnt++;
+        har[cnt] = k;
         int i = cnt;
         while (i != 1 and har[parent(i)] < har[i])
         {
@@ -699,18 +705,25 @@ public:
 
 int main()
 {
-    // MaxHeap h(11);
-    // h.insertKey(3);
-    // h.insertKey(2);
-    // h.deleteKey(2);
-    // h.insertKey(15);
-    // h.insertKey(5);
-    // h.insertKey(4);
-    // h.insertKey(45);
-    // cout << h.extractMax() << " ";
-    // cout << h.getMax() << " ";
-    // h.increaseKey(2, 16);
-    // cout << h.getMax() << endl;
+    MinHeap h(11);
+    h.insertKey(3);
+    h.print();
+    h.insertKey(2);
+    h.print();
+    h.deleteKey(2);
+    h.print();
+    h.insertKey(15);
+    h.print();
+    h.insertKey(5);
+    h.print();
+    h.insertKey(4);
+    h.print();
+    h.insertKey(45);
+    h.print();
+    cout << h.extractMin() << " ";
+    cout << h.getMin() << " ";
+    h.decreaseKey(2, 1);
+    cout << h.getMin() << endl;
     // int n;
     // cin >> n;
     // int ar[n];
@@ -724,23 +737,23 @@ int main()
     //     cout << ar[i] << " ";
     // }
     // cout << endl;
-    BinomialHeap<string> *bh=new BinomialHeap<string>();
-    string a[6]={"dip", "dipto","nill","siam","ayondip","arnob"};
-    Node<string> *x= new Node(a[0]);
-    Node<string> *y=new Node(a[1]);
-    bh->insert(x);
-    bh->insert(y);
-    bh->insert(new Node<string>(a[2]));
-    bh->insert(new Node<string>(a[3]));
-    bh->insert(new Node<string>(a[4]));
-    bh->insert(new Node<string>(a[5]));
+    // BinomialHeap<string> *bh=new BinomialHeap<string>();
+    // string a[6]={"dip", "dipto","nill","siam","ayondip","arnob"};
+    // Node<string> *x= new Node(a[0]);
+    // Node<string> *y=new Node(a[1]);
+    // bh->insert(x);
+    // bh->insert(y);
+    // bh->insert(new Node<string>(a[2]));
+    // bh->insert(new Node<string>(a[3]));
+    // bh->insert(new Node<string>(a[4]));
+    // bh->insert(new Node<string>(a[5]));
 
-    //bh->decreaseKey(x,2);
-    while (!bh->isEmpty())
-    {
-        cout<<bh->extractMin()->value<<" ";
-    }
-    cout<<endl;
+    // //bh->decreaseKey(x,2);
+    // while (!bh->isEmpty())
+    // {
+    //     cout<<bh->extractMin()->value<<" ";
+    // }
+    // cout<<endl;
 
     
 
