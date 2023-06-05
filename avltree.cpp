@@ -83,7 +83,7 @@ public:
         {
             if (difference(t->l) > 0)
             {
-                t = ll_rotate(t);
+                t = rr_rotate(t);
             }
             else
             {
@@ -98,7 +98,7 @@ public:
             }
             else
             {
-                t = rr_rotate(t);
+                t = ll_rotate(t);
             }
         }
         return t;
@@ -120,6 +120,48 @@ public:
             r = balance(r);
         }
         return r;
+    }
+    avl<T> *findMinNode(avl<T> *parent)
+    {
+        avl<T> *curr = parent;
+
+        while (curr->l != NULL)
+        {
+            curr = curr->l;
+        }
+
+        return curr;
+    }
+    avl<T> *Delete(avl<T> *r,T v){
+        if(!r){
+            return NULL;
+        }
+        else if (r->d < v){
+            r->r = Delete(r->r,v);
+            return balance(r);
+        }
+        else if(r->d>v){
+            r->l=Delete(r->l,v);
+            return balance(r);
+        }
+        else{
+            if(r->l==NULL){
+                avl<T> *temp=r->r;
+                free(r);
+                return temp;
+            }
+            else if (!r->r){
+                avl<T> *temp=r->l;
+                free(r);
+                return temp; 
+            }
+            else{
+                avl<T> *temp=findMinNode(r->r);
+                r->d=temp->d;
+                r->r=Delete(r->r,temp->d);
+                return balance(r);
+            }
+        }
     }
     void show(avl<T> *p, int l)
     {
@@ -189,6 +231,7 @@ int main()
         cout << "4.PreOrder traversal" << endl;
         cout << "5.PostOrder traversal" << endl;
         cout << "6.Exit" << endl;
+        cout << "7.Delete"<<endl;
         cout << "Enter your Choice: ";
         cin >> c;
         switch (c)
@@ -226,6 +269,12 @@ int main()
         case 6:
             exit(1);
             break;
+        case 7:
+            cout<<"enter value to be deleted"<<endl;
+            cin>>i;
+            avl.r=avl.Delete(avl.r,i);
+            break;
+
         default:
             cout << "Wrong Choice" << endl;
         }
